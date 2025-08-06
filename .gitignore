@@ -11,3 +11,16 @@ wheels/
 
 # Misc.
 .ipynb_checkpoints/
+
+# idea
+.idea
+
+# assets
+assets
+
+# pixi
+.pixi
+
+# Generated
+Generated
+

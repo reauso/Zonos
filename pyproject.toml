@@ -5,7 +5,7 @@ description = "Text-to-speech by Zyphra"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "torch>=2.5.1",
+    "torch==2.6.*",
     "setuptools",
     "packaging",
     "inflect>=7.5.0",
@@ -30,10 +30,32 @@ compile = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["zonos"]
+include = ["zonos", "zonos.*"]
 
 [tool.uv]
 no-build-isolation-package = ["flash-attn", "mamba-ssm", "causal-conv1d"]
 
 [tool.ruff]
 line-length = 120
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.dependencies]
+pixi-pycharm = "*"
+
+[tool.pixi.environments]
+test = ["test"]
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+coverage = "*"
+parameterized = "*"
+
+[tool.pixi.feature.test.tasks]
+test = "coverage run -m pytest"
+coverage = { cmd = [
+    "coverage", "report",
+    "&&", "coverage", "html"
+], depends-on = ["test"] }
